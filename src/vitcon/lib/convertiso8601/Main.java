@@ -21,6 +21,7 @@ public class Main {
         }
 
         System.out.println(TimeZone.getDefault().getDisplayName());
+//        createTimeZone();
     }
 
     /**
@@ -54,7 +55,7 @@ public class Main {
                 // check time zone
                 if (iso8601Time.contains("Z")) {
                     // Get time zone
-                    timeZone = TimeZone.getTimeZone(ZoneOffset.ofHoursMinutes(0, 0));
+                    timeZone = TimeZone.getTimeZone("GMT+00:00");
                     dateTime.setTimeZone(timeZone);
                 } else if (iso8601Time.contains("+") | iso8601Time.contains("-")) {
                     // Create timezone
@@ -62,10 +63,10 @@ public class Main {
                     // + or -
                     if (iso8601Time.contains("+")) {
                         int tzHour = Integer.parseInt(iso8601Time.substring(iso8601Time.indexOf('+') + 1, iso8601Time.lastIndexOf(':')));
-                        timeZone = TimeZone.getTimeZone(ZoneOffset.ofHoursMinutes(tzHour, tzMinute));
+                        timeZone = TimeZone.getTimeZone("GMT+" + tzHour + ":" + tzMinute);
                     } else {
                         int tzHour = Integer.parseInt(iso8601Time.substring(iso8601Time.indexOf('-') + 1, iso8601Time.lastIndexOf(':')));
-                        timeZone = TimeZone.getTimeZone(ZoneOffset.ofHoursMinutes(-tzHour, -tzMinute));
+                        timeZone = TimeZone.getTimeZone("GMT-" + tzHour + ":" + tzMinute);
                     }
 
                     dateTime.setTimeZone(timeZone);
@@ -79,5 +80,12 @@ public class Main {
         return dateTime;
     }
 
-    
+    public static void createTimeZone() {
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+00:01");
+//        for (String id : TimeZone.getAvailableIDs()) {
+//            System.out.println(id);
+//            System.out.println(TimeZone.getTimeZone(id).getOffset(0)/3600000 + " : " + );
+//        }
+        System.out.println(timeZone.getOffset(0));
+    }
 }
